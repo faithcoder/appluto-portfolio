@@ -4,40 +4,68 @@
  *
  * @package appluto-portfolio
  */
+$appluto_option = function_exists('appluto_get_option')
+    ? 'appluto_get_option'
+    : function ($key, $default = '') {
+        return get_theme_mod($key, $default);
+    };
+
+$footer_logo_override = $appluto_option('appluto_footer_logo_override', '');
+$footer_logo_url      = $footer_logo_override ? $footer_logo_override : (get_template_directory_uri() . '/assets/images/footer-logo.svg');
+$footer_office        = $appluto_option('appluto_footer_office_location', '308 Crescent Avenue, Level 3, Los Angeles, CA 90012, USA');
+$footer_email         = $appluto_option('appluto_footer_contact_email', get_option('admin_email'));
+$footer_phone         = $appluto_option('appluto_footer_contact_phone', '+99 (0) 257 757 6980');
+$footer_phone_link    = preg_replace('/[^0-9+]/', '', (string) $footer_phone);
+$footer_social_links  = $appluto_option('appluto_footer_social_links', array());
 ?>
 <footer class="footer-section two font-alt">
     <div class="footer-main-warp">
         <div class="container-fluid one">
             <div class="company-logo-area">
                 <a href="<?php echo esc_url(home_url('/')); ?>" class="company-logo">
-                    <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/footer-logo.svg" alt="<?php bloginfo('name'); ?>">
+                    <img src="<?php echo esc_url($footer_logo_url); ?>" alt="<?php bloginfo('name'); ?>">
                 </a>
                 <p>We are Global Digital Brand Agency &amp; Art Direction.</p>
             </div>
             <div class="company-contact-info">
                 <div class="address-area">
                     <h3 class="widget-title">Office Location</h3>
-                    <a href="#">308 Crescent Avenue, Level 3, Los Angeles, CA 90012, USA</a>
+                    <a href="#"><?php echo esc_html($footer_office); ?></a>
                     <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/company-barcode.png" alt="barcode">
                 </div>
                 <div class="contact-area">
                     <h3 class="widget-title">Contact Info</h3>
                     <ul class="contact-list">
                         <li class="single-contact">
-                            <a href="mailto:<?php echo esc_attr(antispambot(get_option('admin_email'))); ?>"><?php echo esc_html(antispambot(get_option('admin_email'))); ?></a>
+                            <a href="mailto:<?php echo esc_attr(antispambot($footer_email)); ?>"><?php echo esc_html(antispambot($footer_email)); ?></a>
                         </li>
                         <li class="single-contact">
-                            <a href="tel:+9902577576980">+99 (0) 257 757 6980</a>
+                            <a href="tel:<?php echo esc_attr($footer_phone_link); ?>"><?php echo esc_html($footer_phone); ?></a>
                         </li>
                     </ul>
                 </div>
                 <div class="social-area">
                     <h3 class="widget-title">Social media</h3>
                     <ul class="social-list">
-                        <li><a href="https://www.facebook.com/"><i class="bx bxl-facebook"></i></a></li>
-                        <li><a href="https://x.com/"><i class="bi bi-twitter-x"></i></a></li>
-                        <li><a href="https://www.linkedin.com/"><i class="bx bxl-linkedin"></i></a></li>
-                        <li><a href="https://www.youtube.com/"><i class="bx bxl-youtube"></i></a></li>
+                        <?php if (is_array($footer_social_links) && !empty($footer_social_links)) : ?>
+                            <?php foreach ($footer_social_links as $social_item) : ?>
+                                <?php
+                                $social_url   = isset($social_item['url']) ? $social_item['url'] : '#';
+                                $social_icon  = isset($social_item['icon']) ? $social_item['icon'] : 'bx bxl-facebook';
+                                $social_label = isset($social_item['label']) ? $social_item['label'] : '';
+                                ?>
+                                <li>
+                                    <a href="<?php echo esc_url($social_url); ?>"<?php echo $social_label ? ' aria-label="' . esc_attr($social_label) . '"' : ''; ?>>
+                                        <i class="<?php echo esc_attr($social_icon); ?>"></i>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                        <?php else : ?>
+                            <li><a href="https://www.facebook.com/"><i class="bx bxl-facebook"></i></a></li>
+                            <li><a href="https://x.com/"><i class="bi bi-twitter-x"></i></a></li>
+                            <li><a href="https://www.linkedin.com/"><i class="bx bxl-linkedin"></i></a></li>
+                            <li><a href="https://www.youtube.com/"><i class="bx bxl-youtube"></i></a></li>
+                        <?php endif; ?>
                     </ul>
                 </div>
             </div>

@@ -14,6 +14,23 @@
 </head>
 <body <?php body_class('tt-magic-cursor'); ?>>
 <?php wp_body_open(); ?>
+<?php
+$appluto_option = function_exists('appluto_get_option')
+    ? 'appluto_get_option'
+    : function ($key, $default = '') {
+        return get_theme_mod($key, $default);
+    };
+
+$header_logo_override      = $appluto_option('appluto_header_logo_override', '');
+$header_lets_talk_label    = $appluto_option('appluto_header_lets_talk_label', 'Let’s Talk');
+$header_lets_talk_url      = $appluto_option('appluto_header_lets_talk_url', home_url('/contact'));
+$header_address            = $appluto_option('appluto_header_address', '308 Crescent Avenue, Level 3, Los Angeles, CA 90012, USA');
+$header_contact_email      = $appluto_option('appluto_header_contact_email', get_option('admin_email'));
+$header_contact_phone      = $appluto_option('appluto_header_contact_phone', '+99 (0) 257 757 6980');
+$header_project_btn_label  = $appluto_option('appluto_header_project_btn_label', 'Start Your Project');
+$header_project_btn_url    = $appluto_option('appluto_header_project_btn_url', home_url('/contact'));
+$header_phone_link         = preg_replace('/[^0-9+]/', '', (string) $header_contact_phone);
+?>
 
 <div id="magic-cursor">
     <div id="ball"></div>
@@ -39,22 +56,22 @@
         <h5 class="title">Creative Digital Agency &amp; Art Direction.</h5>
         <div class="address-area">
             <h5>New York</h5>
-            <a href="#">308 Crescent Avenue, Level 3, Los Angeles, CA 90012, USA</a>
+            <a href="#"><?php echo esc_html($header_address); ?></a>
         </div>
         <div class="contact-area">
             <h5>Contact Info</h5>
             <ul class="contact-list">
                 <li class="single-contact">
-                    <a href="mailto:<?php echo esc_attr(antispambot(get_option('admin_email'))); ?>"><?php echo esc_html(antispambot(get_option('admin_email'))); ?></a>
+                    <a href="mailto:<?php echo esc_attr(antispambot($header_contact_email)); ?>"><?php echo esc_html(antispambot($header_contact_email)); ?></a>
                 </li>
                 <li class="single-contact">
-                    <a href="tel:+9902577576980">+99 (0) 257 757 6980</a>
+                    <a href="tel:<?php echo esc_attr($header_phone_link); ?>"><?php echo esc_html($header_contact_phone); ?></a>
                 </li>
             </ul>
         </div>
-        <a href="<?php echo esc_url(home_url('/contact')); ?>" class="primary-btn1">
-            <span>Start Your Project</span>
-            <span>Start Your Project</span>
+        <a href="<?php echo esc_url($header_project_btn_url); ?>" class="primary-btn1">
+            <span><?php echo esc_html($header_project_btn_label); ?></span>
+            <span><?php echo esc_html($header_project_btn_label); ?></span>
         </a>
     </div>
 </div>
@@ -65,6 +82,7 @@
             <?php
             $custom_logo_id = get_theme_mod('custom_logo');
             $logo_src       = $custom_logo_id ? wp_get_attachment_image_url($custom_logo_id, 'full') : '';
+            $logo_src       = $header_logo_override ? $header_logo_override : $logo_src;
             if ($logo_src) :
                 ?>
                 <a href="<?php echo esc_url(home_url('/')); ?>">
@@ -102,17 +120,17 @@
             ?>
 
             <div class="btn-and-contact-area d-lg-none d-block">
-                <a href="<?php echo esc_url(home_url('/contact')); ?>" class="primary-btn1 black-bg">
-                    <span>Let’s Talk</span>
-                    <span>Let’s Talk</span>
+                <a href="<?php echo esc_url($header_lets_talk_url); ?>" class="primary-btn1 black-bg">
+                    <span><?php echo esc_html($header_lets_talk_label); ?></span>
+                    <span><?php echo esc_html($header_lets_talk_label); ?></span>
                 </a>
             </div>
         </div>
 
         <div class="nav-right">
-            <a href="<?php echo esc_url(home_url('/contact')); ?>" class="primary-btn1 black-bg d-lg-flex d-none">
-                <span>Let’s Talk</span>
-                <span>Let’s Talk</span>
+            <a href="<?php echo esc_url($header_lets_talk_url); ?>" class="primary-btn1 black-bg d-lg-flex d-none">
+                <span><?php echo esc_html($header_lets_talk_label); ?></span>
+                <span><?php echo esc_html($header_lets_talk_label); ?></span>
             </a>
             <div class="right-sidebar-button">
                 <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
