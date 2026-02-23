@@ -23,6 +23,11 @@ if (!is_array($appluto_sections_order) || empty($appluto_sections_order)) {
     $appluto_sections_order = array_keys($appluto_default_sections);
 }
 
+$appluto_missing_sections = array_diff(array_keys($appluto_default_sections), $appluto_sections_order);
+if (!empty($appluto_missing_sections)) {
+    $appluto_sections_order = array_merge($appluto_sections_order, $appluto_missing_sections);
+}
+
 foreach ($appluto_sections_order as $appluto_section_key) {
     if (!isset($appluto_default_sections[$appluto_section_key])) {
         continue;
