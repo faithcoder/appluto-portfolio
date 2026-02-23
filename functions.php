@@ -192,3 +192,14 @@ if (!function_exists('appluto_primary_menu_fallback')) {
         echo '</ul>';
     }
 }
+
+// TGMPA integration: prompt installation of required companion plugins.
+if (is_admin()) {
+    $appluto_tgmpa_class = get_template_directory() . '/inc/tgm/class-tgm-plugin-activation.php';
+    $appluto_tgmpa_config = get_template_directory() . '/inc/tgm/tgm-config.php';
+
+    if (file_exists($appluto_tgmpa_class)) {
+        require_once $appluto_tgmpa_class;
+        require_once $appluto_tgmpa_config;
+    }
+}
