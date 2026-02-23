@@ -193,6 +193,11 @@ if (!function_exists('appluto_primary_menu_fallback')) {
     }
 }
 
+$appluto_kirki_file = get_template_directory() . '/inc/kirki/theme-options.php';
+if (file_exists($appluto_kirki_file)) {
+    require_once $appluto_kirki_file;
+}
+
 // TGMPA integration: prompt installation of required companion plugins.
 if (is_admin()) {
     $appluto_tgmpa_class = get_template_directory() . '/inc/tgm/class-tgm-plugin-activation.php';
