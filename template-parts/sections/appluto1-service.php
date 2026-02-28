@@ -1,143 +1,174 @@
-            <!-- home3 Service Section Start -->
-            <div class="home3-service-section mb-140">
-                <div class="service-title-area">
-                    <div class="container-fluid one">
-                        <div class="section-title two white">
-                            <span>Who We Are</span>
-                            <h2 class="text_color_invert"><span></span> We blend creativity, technology, & strategy to craft digital experiences that fuel brand success.</h2>
+<!-- home1 Service Section Start-->
+            <div class="home1-service-section">
+                <div class="container">
+                    <div class="row justify-content-center mb-70">
+                        <div class="col-lg-11">
+                            <div class="section-title text-center">
+                                <span class="text-anim" data-delay="0.4">What we do</span>
+                                <h2 class="text-anim" data-delay="0.1">We specialize in delivering flexible, scalable, and affordable services for startups.</h2>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="container-fluid one">
-                    <div class="service-wrapper service-pp-pin">
-                        <div class="video-area fade_anim" data-delay=".3" data-fade-from="left">
-                            <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/home3-service-video-img.png" alt="">
-                            <a href="<?php echo esc_url(get_template_directory_uri()); ?>/assets/media/home3-video.mp4" class="play-btn" data-fancybox="video-player">
-                                <svg width="14" height="14" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
-                                    <g>
-                                        <path d="M13.2627 7C13.2643 7.26562 13.1952 7.52687 13.0624 7.7569C12.9296 7.98694 12.7379 8.17746 12.5071 8.30889L3.00437 13.7953C2.77511 13.9293 2.5143 14 2.2487 14C1.98311 14 1.72229 13.9293 1.49303 13.7953C1.26221 13.6638 1.07055 13.4733 0.937743 13.2432C0.804932 13.0132 0.735759 12.752 0.737331 12.4864V1.51364C0.735766 1.24803 0.804938 0.986786 0.937743 0.756752C1.07055 0.526717 1.2622 0.336184 1.493 0.204724C1.72228 0.0706577 1.98309 0 2.24869 0C2.51428 0 2.7751 0.0706577 3.00437 0.204724L12.5071 5.69111C12.7379 5.82255 12.9295 6.01307 13.0624 6.2431C13.1952 6.47314 13.2643 6.73439 13.2627 7Z"></path>
-                                    </g>
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="service-list">
-                            <?php
-                            $appluto_service_query = new WP_Query(
-                                array(
-                                    'post_type'           => 'appluto_service',
-                                    'posts_per_page'      => 4,
-                                    'ignore_sticky_posts' => true,
-                                    'orderby'             => array('menu_order' => 'ASC', 'date' => 'DESC'),
-                                )
-                            );
-
-                            if ($appluto_service_query->have_posts()) :
-                                $fallback_images = array(
-                                    get_template_directory_uri() . '/assets/images/service-img1.jpg',
-                                    get_template_directory_uri() . '/assets/images/service-img2.jpg',
-                                    get_template_directory_uri() . '/assets/images/service-img3.jpg',
-                                    get_template_directory_uri() . '/assets/images/service-img4.jpg',
-                                );
-                                $service_index = 0;
-                                while ($appluto_service_query->have_posts()) :
-                                    $appluto_service_query->the_post();
-                                    $service_no   = get_post_meta(get_the_ID(), 'appluto_service_number', true);
-                                    $service_no   = $service_no ? $service_no : ($service_index + 1) . '.';
-                                    $cta_label    = get_post_meta(get_the_ID(), 'appluto_service_cta_label', true);
-                                    $cta_label    = $cta_label ? $cta_label : 'View Details';
-                                    $cta_url      = get_post_meta(get_the_ID(), 'appluto_service_cta_url', true);
-                                    $cta_url      = $cta_url ? $cta_url : get_permalink();
-                                    $features     = get_post_meta(get_the_ID(), 'appluto_service_features', true);
-                                    $description  = has_excerpt() ? get_the_excerpt() : wp_trim_words(wp_strip_all_tags(get_the_content()), 24);
-                                    $service_img  = get_the_post_thumbnail_url(get_the_ID(), 'large');
-                                    $service_img  = $service_img ? $service_img : $fallback_images[$service_index % count($fallback_images)];
-                                    ?>
-                                    <div class="single-service servicePanel">
-                                        <span class="service-no"><?php echo esc_html($service_no); ?></span>
-                                        <div class="service-content">
-                                            <h2><a href="<?php echo esc_url($cta_url); ?>"><?php the_title(); ?></a></h2>
-                                            <ul>
-                                                <?php
-                                                if (is_array($features) && !empty($features)) :
-                                                    foreach ($features as $feature) :
-                                                        $feature_label = isset($feature['label']) ? $feature['label'] : '';
-                                                        $feature_url   = isset($feature['url']) && $feature['url'] ? $feature['url'] : $cta_url;
-                                                        if (!$feature_label) {
-                                                            continue;
-                                                        }
-                                                        ?>
-                                                        <li><a href="<?php echo esc_url($feature_url); ?>"><?php echo esc_html($feature_label); ?></a></li>
-                                                        <?php
-                                                    endforeach;
-                                                endif;
-                                                ?>
-                                            </ul>
-                                            <p><?php echo esc_html($description); ?></p>
-                                            <a href="<?php echo esc_url($cta_url); ?>" class="primary-btn2">
-                                                <span class="icon">
-                                                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M1 9L9 1M9 1C7.22222 1.33333 3.33333 2 1 1M9 1C8.66667 2.66667 8 6.33333 9 9" stroke-width="1.5" stroke-linecap="round"></path>
-                                                    </svg>
-                                                </span>
-                                                <span class="content"><?php echo esc_html($cta_label); ?></span>
-                                                <span class="icon two">
-                                                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M1 9L9 1M9 1C7.22222 1.33333 3.33333 2 1 1M9 1C8.66667 2.66667 8 6.33333 9 9" stroke-width="1.5" stroke-linecap="round"></path>
-                                                    </svg>
-                                                </span>
-                                            </a>
-                                        </div>
+                    <ul class="service-list">
+                        <li class="single-service services-hover fade_anim" data-delay=".2" data-fade-from="top">
+                            <div class="services-top">
+                                <div class="icon">
+                                    <svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M53.9531 36.9609C56.3203 34.8633 57.5859 32.4844 57.5859 30C57.5859 27.4688 56.25 25.0078 53.7305 22.8516C56.2383 20.707 57.5859 18.2578 57.5859 15.6914C57.5859 11.9062 54.668 8.35547 49.3594 5.70703C44.1094 3.08203 37.125 1.62891 29.707 1.62891C22.2891 1.62891 15.293 3.08203 10.043 5.70703C4.73438 8.35547 1.81641 11.9062 1.81641 15.6914C1.81641 18.2578 3.15234 20.707 5.67188 22.8516C3.15234 25.0078 1.81641 27.4688 1.81641 30C1.81641 32.5664 3.15234 35.0156 5.67188 37.1602C3.15234 39.3164 1.81641 41.7773 1.81641 44.3086C1.81641 48.0938 4.73438 51.6445 10.043 54.293C15.293 56.918 22.2773 58.3711 29.6953 58.3711C37.1133 58.3711 44.0977 56.9297 49.3477 54.293C50.168 53.8828 50.9414 53.4492 51.6445 52.9922C55.5938 50.5898 57.9492 47.5078 57.9492 44.1562C57.9492 41.5195 56.4844 39.0586 53.9531 36.9609ZM2.28516 15.6914C2.28516 8.20312 14.5781 2.09766 29.6953 2.09766C44.8125 2.09766 57.1055 8.1914 57.1055 15.6914C57.1055 23.1797 44.8125 29.2852 29.6953 29.2852C14.5781 29.2852 2.28516 23.1797 2.28516 15.6914ZM29.6953 43.5938C14.5781 43.5938 2.28516 37.4883 2.28516 30C2.28516 27.5859 3.58594 25.2305 6.03516 23.1563C7.16016 24.0586 8.49609 24.9141 10.043 25.6758C15.293 28.3008 22.2773 29.7539 29.6953 29.7539C37.1133 29.7539 44.0977 28.3125 49.3477 25.6758C50.8945 24.9023 52.2305 24.0586 53.3555 23.1563C55.8047 25.2305 57.1055 27.5977 57.1055 30C57.1055 37.4883 44.8125 43.5938 29.6953 43.5938Z"/>
+                                    </svg>
+                                </div>
+                                <div class="services-wrapper">
+                                    <div class="title-tag">
+                                        <h2><a href="service-details.html">Branding & Creative Design</a></h2>
+                                        <ul>
+                                            <li>Branding</li>
+                                            <li>Logo design</li>
+                                            <li>Tone of voice</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="details-btn-wrap">
+                                    <a href="service-details.html" class="primary-btn1">
+                                        <span>Discover More</span>
+                                        <span>Discover More</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="service-bottom-wrap">
+                                <div class="services-btm">
+                                    <div class="span"></div>
+                                    <div class="paragraph-img">
+                                        <p>We help startups build standout brands with logo design, brand messaging, tone of voice, & positioning strategies.</p>
                                         <div class="service-img">
-                                            <img src="<?php echo esc_url($service_img); ?>" alt="<?php echo esc_attr(get_the_title()); ?>">
+                                            <img src="assets/img/home1/service-img1.jpg" alt="">
+                                            <img src="assets/img/home1/service-img2.jpg" alt="">
                                         </div>
                                     </div>
-                                    <?php
-                                    $service_index++;
-                                endwhile;
-                                wp_reset_postdata();
-                            else :
-                                $service_fallback = array(
-                                    array('no' => '1.', 'title' => 'Web Development', 'features' => array('Design', 'Develop', 'Deliver'), 'img' => 'service-img1.jpg'),
-                                    array('no' => '2.', 'title' => 'UI/UX & Product Design', 'features' => array('Wireframe', 'Prototype', 'High-fidelity'), 'img' => 'service-img2.jpg'),
-                                    array('no' => '3.', 'title' => '3D Art & Direction', 'features' => array('Wireframe', 'Prototype', 'High-fidelity'), 'img' => 'service-img3.jpg'),
-                                    array('no' => '4.', 'title' => 'Digital Marketing', 'features' => array('Wireframe', 'Prototype', 'High-fidelity'), 'img' => 'service-img4.jpg'),
-                                );
-                                foreach ($service_fallback as $item) :
-                                    ?>
-                                    <div class="single-service servicePanel">
-                                        <span class="service-no"><?php echo esc_html($item['no']); ?></span>
-                                        <div class="service-content">
-                                            <h2><a href="#"><?php echo esc_html($item['title']); ?></a></h2>
-                                            <ul>
-                                                <?php foreach ($item['features'] as $feature) : ?>
-                                                    <li><a href="#"><?php echo esc_html($feature); ?></a></li>
-                                                <?php endforeach; ?>
-                                            </ul>
-                                            <p>We turn your ideas into powerful digital platforms that engage audiences and drive growth.</p>
-                                            <a href="#" class="primary-btn2">
-                                                <span class="icon">
-                                                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M1 9L9 1M9 1C7.22222 1.33333 3.33333 2 1 1M9 1C8.66667 2.66667 8 6.33333 9 9" stroke-width="1.5" stroke-linecap="round"></path>
-                                                    </svg>
-                                                </span>
-                                                <span class="content">View Details</span>
-                                                <span class="icon two">
-                                                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M1 9L9 1M9 1C7.22222 1.33333 3.33333 2 1 1M9 1C8.66667 2.66667 8 6.33333 9 9" stroke-width="1.5" stroke-linecap="round"></path>
-                                                    </svg>
-                                                </span>
-                                            </a>
-                                        </div>
+                                    <div class="span"></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="single-service services-hover fade_anim" data-delay=".3" data-fade-from="top">
+                            <div class="services-top">
+                                <div class="icon">
+                                    <svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M44.297 15.7031C44.1681 7.92188 37.8048 1.64062 30.0001 1.64062C22.1954 1.64062 15.8321 7.93359 15.7032 15.7031C12.129 15.7617 8.76572 17.1211 6.14072 19.582C3.36338 22.1953 1.75791 25.7461 1.64072 29.5547C1.52354 33.3633 2.89463 37.0078 5.51963 39.7852C8.13291 42.5625 11.6837 44.168 15.4923 44.2852H15.6915C15.7501 47.8594 17.1095 51.2344 19.5704 53.8477C22.1837 56.625 25.7345 58.2305 29.5431 58.3477C29.6954 58.3477 29.8478 58.3594 29.9884 58.3594C33.6446 58.3594 37.1017 56.9883 39.7735 54.4805C42.5509 51.8672 44.1563 48.3164 44.2735 44.5078V44.3086C52.0548 44.1797 58.336 37.8164 58.336 30.0117C58.3595 22.1953 52.0665 15.832 44.297 15.7031ZM30.0001 2.10938C37.547 2.10938 43.6993 8.19141 43.8282 15.7031C36.9376 15.8086 31.2188 20.8242 30.0001 27.3867C29.5079 24.7148 28.2657 22.2305 26.3556 20.2031C23.7423 17.4258 20.1915 15.8203 16.3829 15.7031H16.1837C16.3009 8.19141 22.4532 2.10938 30.0001 2.10938ZM15.7032 43.8281H15.5157C11.8243 43.7109 8.39072 42.1758 5.87119 39.4805C3.33994 36.7852 2.00401 33.2695 2.12119 29.5781C2.23838 25.8867 3.77354 22.4531 6.46885 19.9336C9.0001 17.5547 12.2579 16.2305 15.7032 16.1836C15.8087 23.0742 20.8243 28.793 27.3868 30.0117C24.7149 30.5039 22.2306 31.7461 20.1915 33.6562C17.4142 36.2695 15.8087 39.8203 15.6915 43.6289C15.7032 43.6875 15.7032 43.7578 15.7032 43.8281ZM43.8282 44.4844C43.711 48.1758 42.1759 51.6094 39.4806 54.1289C36.7853 56.6602 33.2696 57.9844 29.5782 57.8789C25.8868 57.7617 22.4532 56.2266 19.9337 53.5312C17.5548 51 16.2306 47.7422 16.1837 44.2969C19.7579 44.2383 23.1329 42.8789 25.7462 40.418C27.9962 38.3086 29.461 35.5898 30.0118 32.6016C31.2306 39.1758 36.9493 44.1797 43.8399 44.2969C43.8282 44.3555 43.8282 44.4258 43.8282 44.4844ZM44.297 43.8281C44.2384 40.2539 42.879 36.8789 40.4181 34.2656C38.3087 32.0156 35.5899 30.5508 32.6017 30C39.1759 28.7812 44.1798 23.0625 44.297 16.1719C51.8204 16.3008 57.8907 22.4531 57.8907 30C57.8907 37.5469 51.8087 43.6992 44.297 43.8281Z"/>
+                                    </svg>
+                                </div>
+                                <div class="services-wrapper">
+                                    <div class="title-tag">
+                                        <h2><a href="service-details.html">Web & Product Design</a></h2>
+                                        <ul>
+                                            <li>UI/ UX Design</li>
+                                            <li>Websites</li>
+                                            <li>SaaS platforms </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="details-btn-wrap">
+                                    <a href="service-details.html" class="primary-btn1">
+                                        <span>Discover More</span>
+                                        <span>Discover More</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="service-bottom-wrap">
+                                <div class="services-btm">
+                                    <div class="span"></div>
+                                    <div class="paragraph-img">
+                                        <p>We help startups build standout brands with logo design, brand messaging, tone of voice, & positioning strategies.</p>
                                         <div class="service-img">
-                                            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/' . $item['img']); ?>" alt="">
+                                            <img src="assets/img/home1/service-img3.jpg" alt="">
+                                            <img src="assets/img/home1/service-img4.jpg" alt="">
                                         </div>
                                     </div>
-                                    <?php
-                                endforeach;
-                            endif;
-                            ?>
-                        </div>
-                    </div>
+                                    <div class="span"></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="single-service services-hover fade_anim" data-delay=".4" data-fade-from="top">
+                            <div class="services-top">
+                                <div class="icon">
+                                    <svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M56.8125 3.11719C55.4414 2.8125 53.6484 2.37891 51.8086 1.65234L51.6445 1.58203L51.5391 1.72266C47.8477 6.60938 44.0977 9.22266 40.4648 11.7422C40.1367 11.9766 39.8086 12.1992 39.4805 12.4336C35.8359 14.8945 31.5469 18 27.3281 22.2773C23.9062 25.6641 20.4258 29.9063 17.0625 34.0078C16.4414 34.7695 15.8086 35.5312 15.1875 36.293C10.8984 41.3906 7.04297 45.6797 3.1875 46.5703L3.01172 46.6172V49.6172L3.04687 49.6758C4.41797 52.125 6.23438 55.3125 8.08594 58.2773L8.21484 58.4883L8.41406 58.3477C12.1523 55.8281 15.9375 50.8828 19.6055 46.1133C19.9336 45.6797 20.2617 45.2461 20.6016 44.8242C24.2227 40.0312 28.5 34.5703 32.707 30.4102C36.1055 26.9766 39.5742 24.2695 42.9258 21.6562C43.5469 21.1641 44.1797 20.6836 44.8125 20.1797C49.1367 16.6758 53.0391 13.207 56.9883 6.22266L57.0234 6.16406V3.15234L56.8125 3.11719ZM15.5391 36.5977C16.1602 35.8359 16.793 35.0742 17.4141 34.3125C20.7656 30.2227 24.2344 25.9805 27.6445 22.6172C31.8398 18.3633 36.1055 15.293 39.7383 12.832C40.0664 12.5977 40.3945 12.375 40.7344 12.1406C44.3672 9.62109 48.1172 7.00781 51.8086 2.15625C53.4727 2.8125 55.1133 3.22266 56.4023 3.51562C52.5469 10.2539 48.7266 13.6406 44.4961 17.0625C43.875 17.5547 43.2422 18.0469 42.6211 18.5273C39.2578 21.1523 35.7773 23.8594 32.3555 27.3164C28.1367 31.4883 23.8477 36.9609 20.2148 41.7773C19.8867 42.2109 19.5586 42.6328 19.2188 43.0664C15.6445 47.7305 11.9531 52.5469 8.34375 55.0664C6.60937 52.2773 4.91016 49.3008 3.58594 46.957C7.48828 45.8789 11.3086 41.625 15.5391 36.5977ZM8.03906 57.3164C6.35156 54.5859 4.73438 51.7266 3.46875 49.4883V47.6953C4.76953 50.0039 6.38672 52.8164 8.03906 55.4648V57.3164Z"/>
+                                    </svg>
+                                </div>
+                                <div class="services-wrapper">
+                                    <div class="title-tag">
+                                        <h2><a href="service-details.html">3D Art & Creative Direction</a></h2>
+                                        <ul>
+                                            <li>3D Art Design</li>
+                                            <li>3D Character</li>
+                                            <li>Blender</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="details-btn-wrap">
+                                    <a href="service-details.html" class="primary-btn1">
+                                        <span>Discover More</span>
+                                        <span>Discover More</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="service-bottom-wrap">
+                                <div class="services-btm">
+                                    <div class="span"></div>
+                                    <div class="paragraph-img">
+                                        <p>We help startups build standout brands with logo design, brand messaging, tone of voice, & positioning strategies.</p>
+                                        <div class="service-img">
+                                            <img src="assets/img/home1/service-img5.jpg" alt="">
+                                            <img src="assets/img/home1/service-img6.jpg" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="span"></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="single-service services-hover fade_anim" data-delay=".5" data-fade-from="top">
+                            <div class="services-top">
+                                <div class="icon">
+                                    <svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M56.9063 25.7578C56.2203 24.7598 55.3017 23.9438 54.2298 23.3803C53.1579 22.8168 51.9649 22.5227 50.7539 22.5234C49.6641 22.5234 48.5859 22.582 47.5195 22.6875C48.3516 22.0078 49.1484 21.2812 49.9219 20.5078C51.6563 18.7734 52.4297 16.2891 51.9844 13.875C51.4219 10.8516 49.0195 8.4375 45.9961 7.88672C43.582 7.44141 41.0977 8.21484 39.3633 9.94922C38.6016 10.7109 37.875 11.5195 37.1836 12.3516C37.2891 11.2852 37.3477 10.1953 37.3477 9.11719C37.3477 6.65625 36.1406 4.35937 34.1133 2.96484C31.582 1.21875 28.1719 1.21875 25.6406 2.96484L25.7812 3.15234L25.6523 2.96484C24.6543 3.65078 23.8383 4.56938 23.2748 5.64129C22.7113 6.7132 22.4172 7.90618 22.418 9.11719C22.418 10.207 22.4766 11.2852 22.582 12.3516C21.9023 11.5195 21.1758 10.7227 20.4023 9.94922C18.668 8.21484 16.1836 7.44141 13.7695 7.88672C10.7461 8.44922 8.33203 10.8516 7.78125 13.875C7.34766 16.2539 8.08594 18.6914 9.76172 20.4258C10.5469 21.4688 11.4375 22.2539 12.1641 22.6758C11.1211 22.5703 10.0664 22.5234 9.01172 22.5234C6.55078 22.5234 4.25391 23.7305 2.85938 25.7578C1.11328 28.2891 1.11328 31.6992 2.85938 34.2305C4.25391 36.2578 6.55078 37.4648 9.01172 37.4648C10.1016 37.4648 11.1797 37.4062 12.2461 37.3008C11.4141 37.9805 10.6172 38.707 9.84375 39.4805C8.10938 41.2148 7.33594 43.6992 7.78125 46.1133C8.34375 49.1367 10.7461 51.5508 13.7695 52.1016C14.2266 52.1836 14.6719 52.2305 15.1289 52.2305C17.0859 52.2305 18.9961 51.457 20.4141 50.0391C21.1758 49.2773 21.9023 48.4688 22.5938 47.6367C22.4883 48.7031 22.4297 49.793 22.4297 50.8711C22.4297 53.332 23.6367 55.6289 25.6641 57.0234C26.9297 57.8906 28.418 58.3359 29.8945 58.3359C31.3711 58.3359 32.8594 57.9023 34.125 57.0234L33.9844 56.8242L34.1133 57.0117C36.1406 55.6172 37.3477 53.3203 37.3477 50.8594C37.3477 49.7695 37.2891 48.6914 37.1836 47.625C37.8633 48.457 38.5898 49.2539 39.3633 50.0273C40.7812 51.4453 42.6797 52.2188 44.6484 52.2188C45.0938 52.2188 45.5508 52.1836 46.0078 52.0898C49.0313 51.5273 51.4453 49.125 51.9961 46.1016C52.4414 43.6875 51.668 41.2031 49.9336 39.4688C49.1719 38.707 48.3633 37.9805 47.5313 37.2891C48.5977 37.3945 49.6875 37.4531 50.7656 37.4531C53.2266 37.4531 55.5234 36.2461 56.918 34.2188C58.6523 31.6875 58.6523 28.2891 56.9063 25.7578ZM41.1563 24.4453C42.2695 24.1055 43.4063 23.8125 44.5547 23.5898L45.7617 23.4609C42.1758 26.0742 38.0742 27.9375 33.6914 28.9102L31.1367 29.4727L33.3516 28.0664C33.375 28.0547 33.3984 28.043 33.4219 28.0195L41.1563 24.4453ZM30.3984 28.7344L30.9609 26.1797C31.9453 21.75 33.8438 17.6016 36.5039 13.9805C35.8359 18.4336 34.2422 22.6992 31.793 26.5312L30.3984 28.7344ZM25.9102 3.35156C27.0938 2.53125 28.4883 2.12109 29.8828 2.12109C31.2773 2.12109 32.6602 2.53125 33.8555 3.35156C35.7539 4.65234 36.8906 6.80859 36.8906 9.11719C36.8906 10.4297 36.8086 11.7422 36.6562 13.0312C33.6797 16.8633 31.582 21.3047 30.5273 26.0859L29.8945 28.9102L29.2617 26.0859C28.207 21.3164 26.1094 16.8633 23.1328 13.0312C22.9805 11.7422 22.8984 10.4297 22.8984 9.11719C22.8867 6.80859 24.0117 4.65234 25.9102 3.35156ZM29.3672 31.2422L28.8047 33.7969C27.8203 38.2266 25.9219 42.375 23.2617 45.9961C23.9297 41.5547 25.5234 37.2773 27.9727 33.4453L29.3672 31.2422ZM27.9609 26.5312C27.3164 25.5117 26.7305 24.4688 26.2031 23.4023C25.6758 22.1836 25.125 20.8477 24.668 19.7344C24.0234 17.8711 23.543 15.9492 23.25 13.9922C25.9219 17.6133 27.8086 21.7617 28.793 26.1914L29.3672 28.7461L27.9609 26.5312ZM22.6758 13.2188V13.2422C22.6758 13.2305 22.6641 13.2188 22.6641 13.207L22.6758 13.2188ZM26.4258 28.0664L28.6406 29.4727L26.0859 28.9102C21.6563 27.9258 17.5078 26.0273 13.8867 23.3672C18.3164 24.0352 22.5938 25.6289 26.4258 28.0664ZM12.9258 36.75C11.6367 36.9023 10.3242 36.9844 9.01172 36.9844C6.70313 36.9844 4.55859 35.8477 3.24609 33.9492C1.60547 31.5703 1.60547 28.3828 3.24609 26.0156C4.54688 24.1172 6.70313 22.9805 9.01172 22.9805C10.3242 22.9805 11.6367 23.0625 12.9258 23.2148C16.7578 26.1914 21.1992 28.2891 25.9805 29.3438L28.8047 29.9766L25.9805 30.6094C21.1992 31.6758 16.7578 33.7734 12.9258 36.75ZM13.875 36.6211C17.4961 33.9492 21.6445 32.0625 26.0742 31.0781L28.6289 30.5156L26.4141 31.9219C22.5938 34.3477 18.3164 35.9414 13.875 36.6211ZM33.8555 56.625C31.4766 58.2656 28.2891 58.2656 25.9219 56.625C24.0234 55.3242 22.8867 53.168 22.8867 50.8594C22.8867 49.5469 22.9688 48.2344 23.1211 46.9453C26.0977 43.1133 28.1953 38.6719 29.25 33.8906L29.8828 31.0664L30.5156 33.8906C31.5703 38.6602 33.668 43.1133 36.6445 46.9453C36.7969 48.2344 36.8789 49.5469 36.8789 50.8594C36.8789 53.168 35.7539 55.3242 33.8555 56.625ZM30.3984 31.2422L31.8047 33.457C34.2422 37.2891 35.8359 41.5547 36.5156 46.0078C33.8438 42.3867 31.957 38.2383 30.9727 33.8086L30.3984 31.2422ZM33.3398 31.9102L31.125 30.5039L33.6797 31.0664C38.1094 32.0508 42.2578 33.9492 45.8789 36.6094C41.4492 35.9414 37.1719 34.3477 33.3398 31.9102ZM56.5195 33.9609C55.2188 35.8594 53.0625 36.9961 50.7539 36.9961C49.4414 36.9961 48.1289 36.9141 46.8398 36.7617C43.0078 33.7852 38.5664 31.6875 33.7852 30.6328L30.9609 30L33.7852 29.3672C38.5547 28.3125 43.0078 26.2148 46.8398 23.2383C48.1289 23.0859 49.4414 23.0039 50.7539 23.0039C53.0625 23.0039 55.207 24.1406 56.5195 26.0391C58.1602 28.3945 58.1602 31.582 56.5195 33.9609Z"/>
+                                    </svg>
+                                </div>
+                                <div class="services-wrapper">
+                                    <div class="title-tag">
+                                        <h2><a href="service-details.html">SaaS Application</a></h2>
+                                        <ul>
+                                            <li>SaaS</li>
+                                            <li>Subscription</li>
+                                            <li>SaaS platforms</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="details-btn-wrap">
+                                    <a href="service-details.html" class="primary-btn1">
+                                        <span>Discover More</span>
+                                        <span>Discover More</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="service-bottom-wrap">
+                                <div class="services-btm">
+                                    <div class="span"></div>
+                                    <div class="paragraph-img">
+                                        <p>We help startups build standout brands with logo design, brand messaging, tone of voice, & positioning strategies.</p>
+                                        <div class="service-img">
+                                            <img src="assets/img/home1/service-img7.jpg" alt="">
+                                            <img src="assets/img/home1/service-img8.jpg" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="span"></div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <!-- home3 Service Section End -->
+            <!-- home1 Service Section End-->
+
+            

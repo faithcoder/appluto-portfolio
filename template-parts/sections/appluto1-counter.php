@@ -1,5 +1,5 @@
             <!-- home3 Counter Section Start -->
-            <div class="counter-section two mb-150">
+            <!-- <div class="counter-section two mb-150">
                 <div class="container-fluid one">
                     <ul class="counter-list">
                         <li class="single-counter fade_anim" data-delay=".2" data-fade-from="top" data-ease="bounce">
@@ -20,5 +20,5 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> -->
             <!-- home3 Counter Section End -->
